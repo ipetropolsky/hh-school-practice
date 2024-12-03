@@ -6,6 +6,8 @@
   "author": "Roman Dmiterko",
   "license": "MIT",
   "scripts": {
+    "postinstall": "cp tools/githooks/* .git/hooks || true",
+    "format": "bash tools/format.sh",
     "clean": "rm -rf dist && mkdir dist",
     "clean-cache": "rm -rf .parcel-cache",
     "dev": "parcel *.html",
@@ -18,10 +20,14 @@
     "@parcel/transformer-less": "2.13.2",
     "gh-pages": "6.2.0",
     "less": "4.2.1",
+    "lint-staged": "15.2.10",
     "parcel": "2.13.2",
+    "prettier": "3.4.1",
     "svgo": "3.3.2"
   },
-  "browserslist": ["Chrome 131"],
+  "browserslist": [
+    "Chrome 131"
+  ],
   "packageManager": "yarn@4.5.3",
   "dependencies": {
     "camelcase": "8.0.0"
