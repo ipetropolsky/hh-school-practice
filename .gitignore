@@ -15,3 +15,5 @@ yarn-error.log
 .idea
 .cache
 .DS_Store
+
+/parcel-bundle-reports

@@ -12,10 +12,12 @@
     "clean-cache": "rm -rf .parcel-cache",
     "dev": "parcel *.html",
     "build": "parcel build *.html --public-url './'",
+    "analyze": "yarn build *.html --public-url './'",
     "deploy": "yarn build && gh-pages -d dist"
   },
   "devDependencies": {
     "@parcel/core": "2.13.2",
+    "@parcel/reporter-bundle-analyzer": "2.13.2",
     "@parcel/resolver-default": "2.13.2",
     "@parcel/transformer-less": "2.13.2",
     "gh-pages": "6.2.0",
