@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"fgRDK":[function(require,module,exports,__globalThis) {
+})({"uKhZm":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "0907ca6d3464ddca";
+module.bundle.HMR_BUNDLE_ID = "ee62429a5d9dacde";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -595,8 +595,132 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     }
 }
 
-},{}],"j4kuM":[function(require,module,exports,__globalThis) {
+},{}],"1Z4Rq":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _camelcase = require("camelcase");
+var _camelcaseDefault = parcelHelpers.interopDefault(_camelcase);
+var _gridJs = require("./grid.js");
+(0, _gridJs.addGrid)();
+console.log((0, _camelcaseDefault.default)('foo-bar'));
 
-},{}]},["fgRDK","j4kuM"], "j4kuM", "parcelRequire94c2")
+},{"./grid.js":"gXF4X","camelcase":"bhC7O","@parcel/transformer-js/src/esmodule-helpers.js":"5H4Y9"}],"gXF4X":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addGrid", ()=>addGrid);
+const addGrid = ()=>{
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    document.body.appendChild(grid);
+    document.addEventListener('keydown', (event)=>{
+        if (event.ctrlKey && event.code === 'KeyG') grid.classList.toggle('grid_visible');
+    });
+};
 
-//# sourceMappingURL=hh1.3464ddca.js.map
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5H4Y9"}],"5H4Y9":[function(require,module,exports,__globalThis) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"bhC7O":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>camelCase);
+const UPPERCASE = /[\p{Lu}]/u;
+const LOWERCASE = /[\p{Ll}]/u;
+const LEADING_CAPITAL = /^[\p{Lu}](?![\p{Lu}])/gu;
+const IDENTIFIER = /([\p{Alpha}\p{N}_]|$)/u;
+const SEPARATORS = /[_.\- ]+/;
+const LEADING_SEPARATORS = new RegExp('^' + SEPARATORS.source);
+const SEPARATORS_AND_IDENTIFIER = new RegExp(SEPARATORS.source + IDENTIFIER.source, 'gu');
+const NUMBERS_AND_IDENTIFIER = new RegExp('\\d+' + IDENTIFIER.source, 'gu');
+const preserveCamelCase = (string, toLowerCase, toUpperCase, preserveConsecutiveUppercase)=>{
+    let isLastCharLower = false;
+    let isLastCharUpper = false;
+    let isLastLastCharUpper = false;
+    let isLastLastCharPreserved = false;
+    for(let index = 0; index < string.length; index++){
+        const character = string[index];
+        isLastLastCharPreserved = index > 2 ? string[index - 3] === '-' : true;
+        if (isLastCharLower && UPPERCASE.test(character)) {
+            string = string.slice(0, index) + '-' + string.slice(index);
+            isLastCharLower = false;
+            isLastLastCharUpper = isLastCharUpper;
+            isLastCharUpper = true;
+            index++;
+        } else if (isLastCharUpper && isLastLastCharUpper && LOWERCASE.test(character) && (!isLastLastCharPreserved || preserveConsecutiveUppercase)) {
+            string = string.slice(0, index - 1) + '-' + string.slice(index - 1);
+            isLastLastCharUpper = isLastCharUpper;
+            isLastCharUpper = false;
+            isLastCharLower = true;
+        } else {
+            isLastCharLower = toLowerCase(character) === character && toUpperCase(character) !== character;
+            isLastLastCharUpper = isLastCharUpper;
+            isLastCharUpper = toUpperCase(character) === character && toLowerCase(character) !== character;
+        }
+    }
+    return string;
+};
+const preserveConsecutiveUppercase = (input, toLowerCase)=>{
+    LEADING_CAPITAL.lastIndex = 0;
+    return input.replaceAll(LEADING_CAPITAL, (match)=>toLowerCase(match));
+};
+const postProcess = (input, toUpperCase)=>{
+    SEPARATORS_AND_IDENTIFIER.lastIndex = 0;
+    NUMBERS_AND_IDENTIFIER.lastIndex = 0;
+    return input.replaceAll(NUMBERS_AND_IDENTIFIER, (match, pattern, offset)=>[
+            '_',
+            '-'
+        ].includes(input.charAt(offset + match.length)) ? match : toUpperCase(match)).replaceAll(SEPARATORS_AND_IDENTIFIER, (_, identifier)=>toUpperCase(identifier));
+};
+function camelCase(input, options) {
+    if (!(typeof input === 'string' || Array.isArray(input))) throw new TypeError('Expected the input to be `string | string[]`');
+    options = {
+        pascalCase: false,
+        preserveConsecutiveUppercase: false,
+        ...options
+    };
+    if (Array.isArray(input)) input = input.map((x)=>x.trim()).filter((x)=>x.length).join('-');
+    else input = input.trim();
+    if (input.length === 0) return '';
+    const toLowerCase = options.locale === false ? (string)=>string.toLowerCase() : (string)=>string.toLocaleLowerCase(options.locale);
+    const toUpperCase = options.locale === false ? (string)=>string.toUpperCase() : (string)=>string.toLocaleUpperCase(options.locale);
+    if (input.length === 1) {
+        if (SEPARATORS.test(input)) return '';
+        return options.pascalCase ? toUpperCase(input) : toLowerCase(input);
+    }
+    const hasUpperCase = input !== toLowerCase(input);
+    if (hasUpperCase) input = preserveCamelCase(input, toLowerCase, toUpperCase, options.preserveConsecutiveUppercase);
+    input = input.replace(LEADING_SEPARATORS, '');
+    input = options.preserveConsecutiveUppercase ? preserveConsecutiveUppercase(input, toLowerCase) : toLowerCase(input);
+    if (options.pascalCase) input = toUpperCase(input.charAt(0)) + input.slice(1);
+    return postProcess(input, toUpperCase);
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5H4Y9"}]},["uKhZm","1Z4Rq"], "1Z4Rq", "parcelRequire94c2")
+
+//# sourceMappingURL=index.5d9dacde.js.map
