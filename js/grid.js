@@ -6,6 +6,7 @@ export const addGrid = () => {
     document.addEventListener('keydown', (event) => {
         if (event.ctrlKey && event.code === 'KeyG') {
             grid.classList.toggle('grid_visible');
+            console.log([...grid.classList]);
         }
     });
 }
