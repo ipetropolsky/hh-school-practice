@@ -1,0 +1,40 @@
+.ALARbG_grid {
+  z-index: 9999;
+  pointer-events: none;
+  background-image: linear-gradient(to right, #0000 10px, #ff00001a 1px);
+  background-position: -10px 0;
+  background-size: calc(50% + 5px);
+  display: none;
+  position: fixed;
+  inset: 0 15px;
+}
+
+@media (width <= 767px) {
+  .ALARbG_grid {
+    margin: 0 auto;
+  }
+}
+
+@media (width >= 768px) {
+  .ALARbG_grid {
+    background-image: linear-gradient(to right, #0000 30px, #ff00001a 1px);
+    background-position: -15px 0;
+    background-size: 120px;
+    width: 720px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+@media (width >= 1000px) {
+  .ALARbG_grid {
+    background-size: 80px;
+    width: 960px;
+  }
+}
+
+.ALARbG_grid_visible {
+  display: block;
+}
+/*# sourceMappingURL=index.c41b5a0e.css.map */
