@@ -1,3 +1,3 @@
 module.exports = {
-    '*': ['npm run format --'],
+    '*': ['yarn format'],
 };

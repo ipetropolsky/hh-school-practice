@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "cp tools/githooks/* .git/hooks || true",
-    "format": "bash tools/format.sh",
+    "format": "prettier --ignore-unknown --write",
     "clean": "rm -rf dist && mkdir dist",
     "clean-cache": "rm -rf .parcel-cache",
     "dev": "parcel *.html",
