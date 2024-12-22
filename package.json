@@ -6,7 +6,7 @@
   "author": "Roman Dmiterko",
   "license": "MIT",
   "scripts": {
-    "postinstall": "cp tools/githooks/* .git/hooks || true",
+    "postinstall": "cp -p githooks/* .git/hooks || true",
     "format": "prettier --ignore-unknown --write",
     "clean": "rm -rf dist && mkdir dist",
     "clean-cache": "rm -rf .parcel-cache",
