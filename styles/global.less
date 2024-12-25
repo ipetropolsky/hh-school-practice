@@ -1,19 +1,31 @@
-@min-width: 768px;
-@gt-m: ~'(min-width: @{min-width})';
+@min-tablet: 768px;
+@min-desktop: 930px;
+
+@gt-mobile: ~'(min-width: @{min-tablet})';
+@gt-tablet: ~'(min-width: @{min-desktop})';
 
 :root {
     --min-width: 768px;
     --text-color: #333333;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font: 14px/1.2 Arial, sans-serif;
+    font:
+        14px/1.2 Arial,
+        sans-serif;
     color: var(--text-color);
 }
 
 .container {
     padding: 0 16px;
     box-sizing: border-box;
+    max-width: 930px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 @font-face {
@@ -21,15 +33,22 @@ body {
     src: url('/fonts/Novelist.otf');
 }
 
-
-h1, h2, h3, h4 {
-    font-family: "Roboto Condensed", serif;
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Roboto Condensed', serif;
     font-weight: 400;
 }
 
 h2 {
     font-size: 20px;
     line-height: 1.2;
+
+    @media @gt-mobile {
+        font-size: 30px;
+        line-height: 37px;
+    }
 }
 
 h4 {
@@ -37,4 +56,3 @@ h4 {
     line-height: 19px;
     font-weight: bold;
 }
-
